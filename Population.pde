@@ -32,26 +32,31 @@ class Population {
     for (int i = 0; i < d.length; i++) {
       fitness[i] = d[i].fitness();
     }
-    
+
     int successorIndex = maxFitness();
-    Dot successor = new Dot(400,600);
+    Dot successor = new Dot(400, 600);
     successor.brain = d[successorIndex].copyBrain();
+    successor.reachedGoal = d[successorIndex].reachedGoal;
     for (int i = 0; i< d.length; i++) {
-      d[i] = new Dot(400,600);
+      d[i] = new Dot(400, 600);
       d[i].brain = successor.copyBrain();
-      if(i!=0)
-        d[i].mutate(0.1);
-      else
-         d[i].best = true;
+      if (i!=0) {
+        if (!successor.reachedGoal) {
+          d[i].mutate(0.1);
+        }
+        else{
+          d[i].mutate(0.01);
+        }
+      } else {
+        d[i].best = true;
+      }
     }
-    
-    
   }
   void update() {
     for (int i = 0; i< d.length; i++) {
       d[i].update(o);
     }
-    if(dead()){
+    if (dead()) {
       naturalSelection();
     }
   }

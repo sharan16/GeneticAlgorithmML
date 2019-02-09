@@ -73,6 +73,7 @@ class Dot {
         dead = true;
       } else if (dist(pos.x, pos.y, goal.x, goal.y) < 5) {//if reached goal
         dead = true;
+        reachedGoal = true;
       } else {//if hit obstacle
         for (int i = 0; i < o.length; i++) {
           if ( pos.x > o[i].x - 2 && pos.x < (o[i].x + o[i].w + 2) && pos.y > o[i].y && pos.y-2 < o[i].y + o[i].h + 2) {
